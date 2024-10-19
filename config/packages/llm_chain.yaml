@@ -1,0 +1,37 @@
+llm_chain:
+    platform:
+        openai:
+            api_key: '%env(OPENAI_API_KEY)%'
+    chains:
+        default:
+            model:
+                name: 'GPT'
+                version: 'gpt-4o-mini'
+                options: []
+    embedder:
+        default:
+            model:
+                name: 'openai'
+                version: 'large'
+                options: []
+    stores:
+        # chroma_db:
+            # engine: 'chroma-db'
+            # collection_name: 'wsc-program'
+        pinecone:
+            engine: 'pinecone'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # PhpLlm\LlmChain\Chain\ToolBox\Tool\Clock: ~
+    # PhpLlm\LlmChain\Chain\ToolBox\Tool\OpenMeteo: ~
+    # PhpLlm\LlmChain\Chain\ToolBox\Tool\SerpApi:
+    #    $apiKey: '%env(SERP_API_KEY)%'
+    # PhpLlm\LlmChain\Chain\ToolBox\Tool\Wikipedia: ~
+    PhpLlm\LlmChain\Bridge\OpenAI\Embeddings: ~
+    PhpLlm\LlmChain\Model\EmbeddingsModel: '@PhpLlm\LlmChain\Bridge\OpenAI\Embeddings'
+    PhpLlm\LlmChain\Chain\ToolBox\Tool\SimilaritySearch: ~
+

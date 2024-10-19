@@ -1,0 +1,8 @@
+services:
+    Probots\Pinecone\Pinecone: ~
+
+    Probots\Pinecone\Client:
+        factory: ['@Probots\Pinecone\Pinecone', 'client']
+        arguments:
+            $apiKey: '%env(PINECONE_API_KEY)%'
+            $indexHost: '%env(PINECONE_HOST)%'

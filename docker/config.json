@@ -1,0 +1,42 @@
+{
+  "listeners": {
+    "*:80": {
+      "pass": "routes"
+    }
+  },
+  "routes": [
+    {
+      "match": {
+        "uri": [
+          "*.php",
+          "*.php/*"
+        ]
+      },
+      "action": {
+        "pass": "applications/symfony/direct"
+      }
+    },
+    {
+      "action": {
+        "share": "/var/www/app/public$uri",
+        "fallback": {
+          "pass": "applications/symfony/index"
+        }
+      }
+    }
+  ],
+  "applications": {
+    "symfony": {
+      "type": "php",
+      "targets": {
+        "direct": {
+          "root": "/var/www/app/public/"
+        },
+        "index": {
+          "root": "/var/www/app/public/",
+          "script": "index.php"
+        }
+      }
+    }
+  }
+}

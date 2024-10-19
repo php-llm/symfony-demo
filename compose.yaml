@@ -1,0 +1,20 @@
+services:
+  app:
+    build:
+      context: docker
+    working_dir: /var/www/app
+    volumes:
+      - .:/var/www/app
+      - ../llm-chain:/var/www/llm-chain
+      - ../llm-chain-bundle:/var/www/llm-chain-bundle
+    ports:
+      - 8080:80
+
+  chromadb:
+    image: chromadb/chroma:latest
+    volumes:
+      - ./chromadb:/chroma/chroma
+    environment:
+      - IS_PERSISTENT=TRUE
+      - PERSIST_DIRECTORY=/chroma/chroma # this is the default path, change it as needed
+      - ANONYMIZED_TELEMETRY=FALSE
