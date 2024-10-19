@@ -1,0 +1,7 @@
+services:
+    Codewithkyrian\ChromaDB\Factory:
+        calls:
+            - withHost: ['%env(CHROMADB_HOST)%']
+
+    Codewithkyrian\ChromaDB\Client:
+        factory: ['@Codewithkyrian\ChromaDB\Factory', 'connect']

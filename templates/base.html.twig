@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="{{ app.request.locale }}">
+    <head>
+        <meta charset="UTF-8">
+        <title>{% block title %}LLM Chain Demo{% endblock %}</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="icon" type="image/ico" href="{{ asset('favicon.ico') }}">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        {% block stylesheets %}
+        {% endblock %}
+
+        {% block javascripts %}
+            {% block importmap %}{{ importmap('app') }}{% endblock %}
+        {% endblock %}
+    </head>
+    <body class="{{ block('body_class') }}">
+        <nav class="navbar bg-white shadow-lg navbar-expand">
+            <div class="container">
+                <a class="navbar-brand ms-2 p-0" href="{{ path('chatbot') }}">
+                    {{ ux_icon('mingcute:ai-fill', { height: '40px', width: '40px' }) }}
+                    <strong>LLM Chain</strong> Demo
+                </a>
+                <div class="collapse navbar-collapse">
+                    <ul class="navbar-nav ms-auto me-2 mb-0">
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('chatbot') }}">{{ ux_icon('fluent:bot-24-filled', { height: '20px', width: '20px' }) }} RAG Chat Bot</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('youtube') }}">{{ ux_icon('bi:youtube', { height: '20px', width: '20px' }) }} YouTube Transcript Bot</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="{{ path('wikipedia') }}">{{ ux_icon('mdi:wikipedia', { height: '20px', width: '20px' }) }} Wikipedia Research Bot</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container pt-5">
+            {% block content %}{% endblock %}
+            <footer class="py-3 text-center">
+                <span class="text-white">
+                    Build by <a href="https://christopher-hertel.de" class="text-white" target="_blank">Christopher Hertel</a>
+                    as <a href="https://github.com/php-llm/llm-chain" class="text-white" target="_blank">LLM Chain</a> demo with Symfony.
+                </span>
+            </footer>
+        </div>
+    </body>
+</html>

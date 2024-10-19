@@ -1,0 +1,68 @@
+llm_chain:
+    platform:
+        anthropic:
+            api_key: '%env(ANTHROPIC_API_KEY)%'
+        azure:
+            gpt_deployment:
+                base_url: '%env(AZURE_GPT_BASE_URL)%'
+                deployment: '%env(AZURE_GPT_DEPLOYMENT)%'
+                api_key: '%env(AZURE_GPT_API_KEY)%'
+                api_version: '%env(AZURE_GPT_VERSION)%'
+        #    embeddings_deployment:
+        #        base_url: '%env(AZURE_EMBEDDINGS_BASE_URL)%'
+        #        deployment: '%env(AZURE_EMBEDDINGS_DEPLOYMENT)%'
+        #        api_key: '%env(AZURE_EMBEDDINGS_API_KEY)%'
+        #        api_version: '%env(AZURE_EMBEDDINGS_VERSION)%'
+        openai:
+            api_key: '%env(OPENAI_API_KEY)%'
+    chain:
+        rag:
+            platform: 'llm_chain.platform.azure.gpt_deployment'
+            model:
+                name: 'GPT'
+                version: 'gpt-4o'
+            tools:
+                - 'PhpLlm\LlmChain\Chain\ToolBox\Tool\SimilaritySearch'
+        youtube:
+            platform: 'llm_chain.platform.anthropic'
+            model:
+                name: 'Claude'
+            tools: []
+        wikipedia:
+            platform: 'llm_chain.platform.anthropic'
+            model:
+                name: 'GPT'
+                version: 'gpt-4o-mini'
+            tools:
+                - 'PhpLlm\LlmChain\Chain\ToolBox\Tool\Wikipedia'
+    embedder:
+        default:
+            model:
+                name: 'openai'
+                version: 'large'
+                options: []
+    store:
+        # chroma_db:
+        #     host: '%env(CHROMADB_HOST)%'
+        #     collection_name: 'symfony-demo'
+        pinecone:
+            engine: pinecone
+            #host: '%env(PINECONE_HOST)%'
+            #api_key: '%env(PINECONE_API_KEY)%'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    # PhpLlm\LlmChain\Chain\ToolBox\Tool\Clock: ~
+    # PhpLlm\LlmChain\Chain\ToolBox\Tool\OpenMeteo: ~
+    # PhpLlm\LlmChain\Chain\ToolBox\Tool\SerpApi:
+    #    $apiKey: '%env(SERP_API_KEY)%'
+    PhpLlm\LlmChain\Chain\ToolBox\Tool\Wikipedia: ~
+    PhpLlm\LlmChain\Chain\ToolBox\Tool\SimilaritySearch:
+        $platform: '@llm_chain.platform.anthropic'
+
+    PhpLlm\LlmChain\Bridge\OpenAI\Embeddings: ~
+    PhpLlm\LlmChain\Model\EmbeddingsModel: '@PhpLlm\LlmChain\Bridge\OpenAI\Embeddings'
+
