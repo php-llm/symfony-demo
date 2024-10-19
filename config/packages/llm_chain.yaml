@@ -1,0 +1,40 @@
+llm_chain:
+    platform:
+        openai:
+            api_key: '%env(OPENAI_API_KEY)%'
+    chain:
+        rag:
+            model:
+                name: 'GPT'
+                version: 'gpt-4o-mini'
+            tools:
+                - 'PhpLlm\LlmChain\Chain\ToolBox\Tool\SimilaritySearch'
+        youtube:
+            model:
+                name: 'GPT'
+                version: 'gpt-4o-mini'
+            tools: []
+        wikipedia:
+            model:
+                name: 'GPT'
+                version: 'gpt-4o-mini'
+            tools:
+                - 'PhpLlm\LlmChain\Chain\ToolBox\Tool\Wikipedia'
+    store:
+        chroma_db:
+            symfonycon:
+                host: '%env(CHROMADB_HOST)%'
+                collection: 'symfony_blog'
+
+services:
+    _defaults:
+        autowire: true
+        autoconfigure: true
+
+    PhpLlm\LlmChain\Chain\ToolBox\Tool\Wikipedia: ~
+    PhpLlm\LlmChain\Chain\ToolBox\Tool\SimilaritySearch: ~
+
+    # TODO: move to configuration
+    PhpLlm\LlmChain\Bridge\OpenAI\Embeddings: ~
+    PhpLlm\LlmChain\Model\EmbeddingsModel: '@PhpLlm\LlmChain\Bridge\OpenAI\Embeddings'
+

@@ -1,0 +1,23 @@
+index:
+    path: '/'
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController'
+    defaults:
+        template:  'index.html.twig'
+
+rag:
+    path: '/rag'
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController'
+    defaults:
+        template:  'chat/rag.html.twig'
+
+youtube:
+    path: '/youtube'
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController'
+    defaults:
+        template:  'chat/youtube.html.twig'
+
+wikipedia:
+    path: '/wikipedia'
+    controller: 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController'
+    defaults:
+        template:  'chat/wikipedia.html.twig'

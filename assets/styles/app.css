@@ -1,0 +1,157 @@
+body {
+    min-height: 100vh;
+    &.rag, .rag .card-img-top {
+        background: rgb(220,139,110);
+        background: linear-gradient(0deg, rgba(220,139,110,1) 0%, rgba(244,233,115,1) 100%);
+    }
+    &.youtube, .youtube .card-img-top {
+        background: rgb(34,34,34);
+        background: linear-gradient(0deg, rgb(0, 0, 0) 0%, rgb(71, 71, 71) 100%);
+    }
+    &.wikipedia, .wikipedia .card-img-top {
+        background: url('/wiki.png') no-repeat right 50px bottom 50px fixed, linear-gradient(0deg, rgb(246, 246, 246) 0%, rgb(197, 197, 197) 100%);
+    }
+
+    footer, footer a {
+        color: #6c757d;
+    }
+}
+
+.index {
+    .card-img-top {
+        text-align: center;
+
+        .youtube & {
+            color: #ff0000;
+        }
+    }
+}
+
+.chat {
+    .card {
+        border: 1px solid #bcbcbc;
+        background-color: rgba(250, 250, 250, 0.9);
+    }
+
+    .card-header {
+        background: #efefef;
+
+        svg {
+            margin-top: -2px;
+        }
+    }
+
+    .card-body {
+        height: 700px;
+
+        .wikipedia & {
+            background-image: linear-gradient(135deg, #f2f2f2 16.67%, #ebebeb 16.67%, #ebebeb 50%, #f2f2f2 50%, #f2f2f2 66.67%, #ebebeb 66.67%, #ebebeb 100%);
+            background-size: 21.21px 21.21px;
+        }
+
+        .user-message {
+            border-radius: 10px 10px 0 10px;
+            color: #292929;
+
+            .rag & {
+                background: #f4e973;
+            }
+
+            .youtube & {
+                background: #3e2926;
+                color: #fafafa;
+            }
+
+            .wikipedia & {
+                background: #ffffff;
+            }
+        }
+
+        .bot-message {
+            border-radius: 10px 10px 10px 0;
+
+            .rag & {
+                background: #dc8b6e;
+            }
+
+            .youtube & {
+                background: #df3535;
+            }
+
+            .wikipedia & {
+                background: #ffffff;
+                color: #292929 !important;
+            }
+
+            color: #fff;
+
+            p {
+                margin-bottom: 0;
+            }
+        }
+
+        .avatar {
+            width: 50px;
+            height: 50px;
+            border: 2px solid white;
+
+            .rag &.bot {
+                outline: 1px solid #ffdacc;
+                background: #ffdacc;
+            }
+
+            .rag &.user {
+                outline: 1px solid #fffad1;
+                background: #fffad1;
+            }
+
+            .youtube &.bot {
+                outline: 1px solid #ffcccc;
+                background: #ffcccc;
+            }
+
+            .youtube &.user {
+                outline: 1px solid #9e8282;
+                background: #9e8282;
+            }
+
+            .wikipedia &.bot, .wikipedia &.user {
+                outline: 1px solid #eaeaea;
+                background: #eaeaea;
+            }
+        }
+    }
+
+    .card-footer {
+        background: #efefef;
+
+        input:focus {
+            outline: none !important;
+            box-shadow: none !important;
+        }
+    }
+
+    #welcome {
+        h4 {
+            .rag & {
+                color: #f97b62;
+            }
+
+            .youtube & {
+                color: #ff0000;
+            }
+        }
+    }
+
+    #chat-reset, #chat-submit {
+        .rag &:hover {
+            background: #f97b62;
+            border-color: #f97b62;
+        }
+
+        .youtube &:hover {
+            background: #ff0000;
+            border-color: #ff0000;
+        }
+    }
+}

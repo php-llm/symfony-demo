@@ -1,0 +1,30 @@
+{% import "components/_message.html.twig" as message %}
+
+<div class="card mx-auto shadow-lg" {{ attributes.defaults(stimulus_controller('chat')) }}>
+    <div class="card-header p-2">
+            {{ ux_icon('fluent:bot-24-filled', { height: '32px', width: '32px' }) }}
+            <strong class="ms-1 pt-1 d-inline-block">Chat with RAG Chat Bot</strong>
+        <button id="chat-reset" class="btn btn-sm btn-outline-secondary float-end">{{ ux_icon('material-symbols:cancel') }} Reset Chat</button>
+    </div>
+    <div id="chat-body" class="card-body p-4 overflow-auto">
+        {% for message in this.messages %}
+            {% include 'components/_message.html.twig' with { message, latest: loop.last } %}
+        {% else %}
+            <div id="welcome" class="text-center mt-5 py-5 bg-white rounded-5 shadow-sm w-75 mx-auto">
+                {{ ux_icon('entypo:chat', { height: '100px', width: '100px' }) }}
+                <h4 class="mt-5">Retrieval Augmented Generation with the Symfony blog</h4>
+                <span class="text-muted">Please use the text input at the bottom to start chatting.</span>
+            </div>
+        {% endfor %}
+        <div id="loading-message" class="d-none">
+            {{ message.user([{text:''}]) }}
+            {{ message.bot('Your Symfony bot is looking for an answer ...', true) }}
+        </div>
+    </div>
+    <div class="card-footer p-2">
+        <div class="input-group">
+            <input id="chat-message" type="text" class="form-control border-0" placeholder="Write a message ...">
+            <button id="chat-submit" class="btn btn-outline-secondary border-0" type="button">{{ ux_icon('mingcute:send-fill', { height: '25px', width: '25px' }) }} Submit</button>
+        </div>
+    </div>
+</div>
