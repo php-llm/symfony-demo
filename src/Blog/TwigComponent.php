@@ -2,39 +2,38 @@
 
 declare(strict_types=1);
 
-namespace App\Wikipedia\Twig;
+namespace App\Blog;
 
-use App\Wikipedia\Chat\Wikipedia;
 use PhpLlm\LlmChain\Model\Message\MessageBag;
 use Symfony\UX\LiveComponent\Attribute\AsLiveComponent;
 use Symfony\UX\LiveComponent\Attribute\LiveAction;
 use Symfony\UX\LiveComponent\Attribute\LiveArg;
 use Symfony\UX\LiveComponent\DefaultActionTrait;
 
-#[AsLiveComponent('wikipedia')]
-final class WikipediaComponent
+#[AsLiveComponent('blog', template: 'blog/component.html.twig')]
+final class TwigComponent
 {
     use DefaultActionTrait;
 
     public function __construct(
-        private readonly Wikipedia $wikipedia,
+        private readonly Chat $chat,
     ) {
     }
 
     public function getMessages(): MessageBag
     {
-        return $this->wikipedia->loadMessages()->withoutSystemMessage();
+        return $this->chat->loadMessages()->withoutSystemMessage();
     }
 
     #[LiveAction]
     public function submit(#[LiveArg] string $message): void
     {
-        $this->wikipedia->submitMessage($message);
+        $this->chat->submitMessage($message);
     }
 
     #[LiveAction]
     public function reset(): void
     {
-        $this->wikipedia->reset();
+        $this->chat->reset();
     }
 }

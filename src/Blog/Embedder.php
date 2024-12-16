@@ -11,7 +11,7 @@ use PhpLlm\LlmChain\Embedder as LlmChainEmbedder;
 final readonly class Embedder
 {
     public function __construct(
-        private Loader $loader,
+        private FeedLoader $loader,
         private LlmChainEmbedder $embedder,
     ) {
     }

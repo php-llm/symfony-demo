@@ -1,6 +1,6 @@
 body {
     min-height: 100vh;
-    &.rag, .rag .card-img-top {
+    &.blog, .blog .card-img-top {
         background: rgb(220,139,110);
         background: linear-gradient(0deg, rgba(220,139,110,1) 0%, rgba(244,233,115,1) 100%);
     }
@@ -53,7 +53,7 @@ body {
             border-radius: 10px 10px 0 10px;
             color: #292929;
 
-            .rag & {
+            .blog & {
                 background: #f4e973;
             }
 
@@ -70,7 +70,7 @@ body {
         .bot-message {
             border-radius: 10px 10px 10px 0;
 
-            .rag & {
+            .blog & {
                 background: #dc8b6e;
 
                 a {
@@ -103,12 +103,12 @@ body {
             height: 50px;
             border: 2px solid white;
 
-            .rag &.bot {
+            .blog &.bot {
                 outline: 1px solid #ffdacc;
                 background: #ffdacc;
             }
 
-            .rag &.user {
+            .blog &.user {
                 outline: 1px solid #fffad1;
                 background: #fffad1;
             }
@@ -141,7 +141,7 @@ body {
 
     #welcome {
         h4 {
-            .rag & {
+            .blog & {
                 color: #f97b62;
             }
 
@@ -152,7 +152,7 @@ body {
     }
 
     #chat-reset, #chat-submit {
-        .rag &:hover {
+        .blog &:hover {
             background: #f97b62;
             border-color: #f97b62;
         }

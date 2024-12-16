@@ -8,7 +8,7 @@ use Symfony\Component\DomCrawler\Crawler;
 use Symfony\Component\Uid\Uuid;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
-class Loader
+class FeedLoader
 {
     public function __construct(
         private HttpClientInterface $httpClient,

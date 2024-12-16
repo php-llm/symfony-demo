@@ -4,20 +4,20 @@ index:
     defaults:
         template:  'index.html.twig'
 
-rag:
-    path: '/rag'
+blog:
+    path: '/blog'
     controller: 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController'
     defaults:
-        template:  'chat/rag.html.twig'
+        template:  'blog/chat.html.twig'
 
 youtube:
     path: '/youtube'
     controller: 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController'
     defaults:
-        template:  'chat/youtube.html.twig'
+        template:  'youtube/chat.html.twig'
 
 wikipedia:
     path: '/wikipedia'
     controller: 'Symfony\Bundle\FrameworkBundle\Controller\TemplateController'
     defaults:
-        template:  'chat/wikipedia.html.twig'
+        template:  'wikipedia/chat.html.twig'

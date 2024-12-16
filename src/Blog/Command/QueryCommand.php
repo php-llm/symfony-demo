@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Command;
+namespace App\Blog\Command;
 
 use Codewithkyrian\ChromaDB\Client;
 use PhpLlm\LlmChain\Bridge\OpenAI\Embeddings;
@@ -15,8 +15,8 @@ use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
-#[AsCommand('app:chroma:test', description: 'Testing Chroma DB connection.')]
-final class ChromaTestCommand extends Command
+#[AsCommand('app:blog:query', description: 'Test command for querying the blog collection in Chroma DB.')]
+final class QueryCommand extends Command
 {
     public function __construct(
         private readonly Client $chromaClient,
@@ -31,23 +31,19 @@ final class ChromaTestCommand extends Command
         $io->title('Testing Chroma DB Connection');
 
         $io->comment('Connecting to Chroma DB ...');
-
-        // Check current ChromaDB version
-        $version = $this->chromaClient->version();
-
-        // Get WSC Collection
         $collection = $this->chromaClient->getOrCreateCollection('symfony_blog');
-
         $io->table(['Key', 'Value'], [
-            ['ChromaDB Version', $version],
+            ['ChromaDB Version', $this->chromaClient->version()],
             ['Collection Name', $collection->name],
             ['Collection ID', $collection->id],
             ['Total Documents', $collection->count()],
         ]);
 
-        $io->comment('Searching for content about "New Symfony Features" ...');
+        $search = $io->ask('What do you want to know about?', 'New Symfony Features');
+        $io->comment(sprintf('Converting "%s" to vector & searching in Chroma DB ...', $search));
+        $io->comment('Results are limited to 4 most similar documents.');
 
-        $platformResponse = $this->platform->request(new Embeddings(), 'New Symfony Features');
+        $platformResponse = $this->platform->request(new Embeddings(), $search);
         assert($platformResponse instanceof AsyncResponse);
         $platformResponse = $platformResponse->unwrap();
         assert($platformResponse instanceof VectorResponse);
@@ -62,16 +58,12 @@ final class ChromaTestCommand extends Command
             return Command::FAILURE;
         }
 
-        $io->table(['ID', 'Title'], [
+        foreach ($queryResponse->ids[0] as $i => $id) {
             /* @phpstan-ignore-next-line */
-            [$queryResponse->ids[0][0], $queryResponse->metadatas[0][0]['title']],
+            $io->section($queryResponse->metadatas[0][$i]['title']);
             /* @phpstan-ignore-next-line */
-            [$queryResponse->ids[0][1], $queryResponse->metadatas[0][1]['title']],
-            /* @phpstan-ignore-next-line */
-            [$queryResponse->ids[0][2], $queryResponse->metadatas[0][2]['title']],
-            /* @phpstan-ignore-next-line */
-            [$queryResponse->ids[0][3], $queryResponse->metadatas[0][3]['title']],
-        ]);
+            $io->block($queryResponse->metadatas[0][$i]['description']);
+        }
 
         $io->success('Chroma DB Connection & Similarity Search Test Successful!');
 

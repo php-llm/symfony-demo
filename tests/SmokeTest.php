@@ -26,7 +26,7 @@ final class SmokeTest extends WebTestCase
     public function testRag(): void
     {
         $client = static::createClient();
-        $client->request('GET', '/rag');
+        $client->request('GET', '/blog');
 
         self::assertResponseIsSuccessful();
         self::assertSelectorTextContains('h4', 'Retrieval Augmented Generation with the Symfony blog');

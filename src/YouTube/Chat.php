@@ -2,9 +2,8 @@
 
 declare(strict_types=1);
 
-namespace App\YouTube\Chat;
+namespace App\YouTube;
 
-use App\YouTube\TranscriptFetcher;
 use PhpLlm\LlmChain\ChainInterface;
 use PhpLlm\LlmChain\Model\Message\Message;
 use PhpLlm\LlmChain\Model\Message\MessageBag;
@@ -12,7 +11,7 @@ use PhpLlm\LlmChain\Model\Response\TextResponse;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-final class YouTube
+final class Chat
 {
     private const SESSION_KEY = 'youtube-chat';
 

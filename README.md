@@ -79,7 +79,7 @@ docker compose exec app bin/console app:blog:embed -vv
 Now you should be able to run the test command and get some results:
 
 ```shell
-docker compose exec app bin/console app:chroma:test
+docker compose exec app bin/console app:blog:query
 ```
 
 **Don't forget to set up the project in your favorite IDE or editor.**

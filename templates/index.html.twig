@@ -8,26 +8,26 @@
         <p class="my-4 text-dark">
             This is a small demo app that can be used to explore the capabilities of LLM Chain together with Symfony,
             Symfony UX and Twig Live Components.<br />
-            Central to this demo are three chatbot examples that are implemented in <code>src/Chat/</code> and LLM Chain
+            Central to this demo are three chatbot examples that are implemented in <code>src/**/Chat.php</code> and LLM Chain
             configuration can be found in <code>config/packages/llm_chain.yaml</code>.
         </p>
         <h3 class="text-dark">Examples</h3>
         <div class="row">
             <div class="col-md-4">
-                <div class="card rag bg-body shadow-sm">
+                <div class="card blog bg-body shadow-sm">
                     <div class="card-img-top py-2">
-                        {{ ux_icon('fluent:bot-24-filled', { height: '150px', width: '150px' }) }}
+                        {{ ux_icon('mdi:symfony', { height: '150px', width: '150px' }) }}
                     </div>
                     <div class="card-body">
-                        <h5 class="card-title">RAG Chat Bot</h5>
-                        <p class="card-text">Retrieval Augmented Generation based on Symfony's blog dumped to a vector store.</p>
-                        <a href="{{ path('rag') }}" class="btn btn-outline-dark d-block">Try RAG Chat Bot</a>
+                        <h5 class="card-title">Symfony Blog Bot</h5>
+                        <p class="card-text">Retrieval Augmented Generation (RAG) based on Symfony's blog dumped to a vector store.</p>
+                        <a href="{{ path('blog') }}" class="btn btn-outline-dark d-block">Try Symfony Blog Bot</a>
                     </div>
                     {# Profiler route only available in dev #}
                     {% if 'dev' == app.environment %}
                         <div class="card-footer">
                             {{ ux_icon('solar:code-linear', { height: '20px', width: '20px' }) }}
-                            <a href="{{ path('_profiler_open_file', { file: 'src/Chat/Rag.php', line: 14 }) }}">See Implementation</a>
+                            <a href="{{ path('_profiler_open_file', { file: 'src/Blog/Chat.php', line: 14 }) }}">See Implementation</a>
                         </div>
                     {% endif %}
                 </div>
@@ -46,7 +46,7 @@
                     {% if 'dev' == app.environment %}
                         <div class="card-footer">
                             {{ ux_icon('solar:code-linear', { height: '20px', width: '20px' }) }}
-                            <a href="{{ path('_profiler_open_file', { file: 'src/Chat/YouTube.php', line: 15 }) }}">See Implementation</a>
+                            <a href="{{ path('_profiler_open_file', { file: 'src/YouTube/Chat.php', line: 15 }) }}">See Implementation</a>
                         </div>
                     {% endif %}
                 </div>
@@ -65,7 +65,7 @@
                     {% if 'dev' == app.environment %}
                         <div class="card-footer">
                             {{ ux_icon('solar:code-linear', { height: '20px', width: '20px' }) }}
-                            <a href="{{ path('_profiler_open_file', { file: 'src/Chat/Wikipedia.php', line: 14 }) }}">See Implementation</a>
+                            <a href="{{ path('_profiler_open_file', { file: 'src/Wikipedia/Chat.php', line: 14 }) }}">See Implementation</a>
                         </div>
                     {% endif %}
                 </div>
