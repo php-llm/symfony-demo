@@ -12,7 +12,7 @@ use Symfony\Component\Console\Output\OutputInterface;
 use Symfony\Component\Console\Style\SymfonyStyle;
 
 #[AsCommand('app:blog:embed', description: 'Create embeddings for Symfony blog and push to ChromaDB.')]
-final class BlogEmbedCommand extends Command
+final class EmbedCommand extends Command
 {
     public function __construct(
         private readonly Embedder $embedder,

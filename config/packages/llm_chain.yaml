@@ -16,7 +16,7 @@ llm_chain:
         openai:
             api_key: '%env(OPENAI_API_KEY)%'
     chain:
-        rag:
+        blog:
             # platform: 'llm_chain.platform.anthropic'
             model:
                 name: 'GPT'

@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace App\Wikipedia\Chat;
+namespace App\Blog;
 
 use PhpLlm\LlmChain\ChainInterface;
 use PhpLlm\LlmChain\Model\Message\Message;
@@ -11,23 +11,30 @@ use PhpLlm\LlmChain\Model\Response\TextResponse;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\RequestStack;
 
-final class Wikipedia
+final class Chat
 {
-    private const SESSION_KEY = 'wikipedia-chat';
+    private const SESSION_KEY = 'blog-chat';
 
     public function __construct(
         private readonly RequestStack $requestStack,
-        #[Autowire(service: 'llm_chain.chain.wikipedia')]
+        #[Autowire(service: 'llm_chain.chain.blog')]
         private readonly ChainInterface $chain,
     ) {
     }
 
     public function loadMessages(): MessageBag
     {
-        $default = new MessageBag();
-        $default[] = Message::forSystem('Please answer the users question based on Wikipedia and provide a link to the article.');
+        $messages = new MessageBag(
+            Message::forSystem(<<<PROMPT
+                You are an helpful assistant that knows about the latest blog content of the Symfony's framework website.
+                To search for content you use the tool 'similarity_search' for generating the answer. Only use content
+                that you get from searching with that tool or you previous answers. Don't make up information and if you
+                can't find something, just say so. Also provide links to the blog posts you use as sources.
+                PROMPT
+            )
+        );
 
-        return $this->requestStack->getSession()->get(self::SESSION_KEY, $default);
+        return $this->requestStack->getSession()->get(self::SESSION_KEY, $messages);
     }
 
     public function submitMessage(string $message): void

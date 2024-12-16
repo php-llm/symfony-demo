@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Tests\Blog;
 
-use App\Blog\Loader;
+use App\Blog\FeedLoader;
 use App\Blog\Post;
 use PHPUnit\Framework\Attributes\CoversClass;
 use PHPUnit\Framework\Attributes\UsesClass;
@@ -12,7 +12,7 @@ use PHPUnit\Framework\TestCase;
 use Symfony\Component\HttpClient\MockHttpClient;
 use Symfony\Component\HttpClient\Response\MockResponse;
 
-#[CoversClass(Loader::class)]
+#[CoversClass(FeedLoader::class)]
 #[UsesClass(Post::class)]
 final class LoaderTest extends TestCase
 {
@@ -21,7 +21,7 @@ final class LoaderTest extends TestCase
         $response = MockResponse::fromFile(__DIR__.'/fixtures/blog.rss');
         $client = new MockHttpClient($response);
 
-        $loader = new Loader($client);
+        $loader = new FeedLoader($client);
         $posts = $loader->load();
 
         self::assertCount(10, $posts);

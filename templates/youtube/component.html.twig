@@ -1,15 +1,15 @@
-{% import "components/_message.html.twig" as message %}
+{% import "_message.html.twig" as message %}
 
 <div class="card mx-auto shadow-lg" {{ attributes.defaults(stimulus_controller('youtube')) }}>
     <div class="card-header p-2">
             {{ ux_icon('bi:youtube', { height: '32px', width: '32px' }) }}
-            <strong class="ms-1 pt-1 d-inline-block">Chat about a YouTube Video</strong>
+            <strong class="ms-1 pt-1 d-inline-block">YouTube Transcript Bot</strong>
         <button id="chat-reset" class="btn btn-sm btn-outline-secondary float-end">{{ ux_icon('material-symbols:cancel') }} Reset Chat</button>
     </div>
     <div id="chat-body" class="card-body p-4 overflow-auto">
         {% set messages = this.messages %}
         {% for message in messages %}
-            {% include 'components/_message.html.twig' with { message, latest: loop.last } %}
+            {% include '_message.html.twig' with { message, latest: loop.last } %}
         {% else %}
             <div id="welcome" class="text-center mt-5 py-5 bg-white rounded-5 shadow-sm w-75 mx-auto">
                 {{ ux_icon('bi:youtube', { color: '#FF0000', height: '100px', width: '100px' }) }}
